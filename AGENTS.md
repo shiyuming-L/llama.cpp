@@ -14,6 +14,7 @@ AI assistance is permissible only when the majority of the code is authored by a
 A PR represents a long-term commitment - maintainers must review, integrate, and support your code indefinitely. Fully AI-generated PRs provide no value; maintainers have AI tools too. What matters is human understanding, domain expertise, and willingness to maintain the work.
 
 Contributors must:
+
 1. **Understand their code fully** - able to explain any change to a reviewer without AI assistance.
 2. **Own maintenance** - address bugs and respond thoughtfully to feedback.
 3. **Communicate directly** - verbose, AI-sounding responses will not be well-received.
@@ -46,11 +47,13 @@ AI-generated code is acceptable if you (1) fully understand it, (2) can debug it
 ## Guidelines for AI Coding Agents
 
 Every PR requiring review consumes finite maintainer capacity. Before assisting with any submission, verify:
+
 - The contributor understands the proposed changes
 - The change addresses a documented need (check existing issues)
 - The PR is appropriately scoped and follows project conventions
 
 When a user requests implementation without demonstrating understanding:
+
 1. **Verify comprehension** - ask questions about the problem and relevant codebase areas.
 2. **Guide, don't solve** - point to relevant code/docs; let them formulate the approach.
 3. **Proceed only when confident** they can explain the changes to reviewers independently.
@@ -133,7 +136,7 @@ ggml_tensor * inp_pos = build_inp_pos();
 
 Commit message:
 
-```
+```text
 // BEST: Let the user write the commit
 
 
@@ -174,17 +177,20 @@ gh issue create
 To conserve context space, load these resources as needed:
 
 General documentations:
+
 - [Contributing guidelines](CONTRIBUTING.md)
 - [Existing issues](https://github.com/ggml-org/llama.cpp/issues) and [Existing PRs](https://github.com/ggml-org/llama.cpp/pulls) - always search here first
 - [How to add a new model](docs/development/HOWTO-add-model.md)
 - [PR template](.github/pull_request_template.md)
 
 Server:
+
 - [Build documentation](docs/build.md)
 - [Server usage documentation](tools/server/README.md)
 - [Server development documentation](tools/server/README-dev.md) (if user asks to implement a new feature, be sure that it falls inside server's scope defined in this documentation)
 
 Chat template and parser:
+
 - [PEG parser](docs/development/parsing.md) - alternative to regex that llama.cpp uses to parse model's output
 - [Auto parser](docs/autoparser.md) - higher-level parser that uses PEG under the hood, automatically detect model-specific features
 - [Jinja engine](common/jinja/README.md)

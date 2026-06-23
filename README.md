@@ -1,3 +1,4 @@
+<!-- markdownlint-disable MD033 -->
 # llama.cpp
 
 ![llama](https://raw.githubusercontent.com/ggml-org/llama.brand/refs/heads/master/cover/llama-cpp/cover-llama-cpp-dark.svg)
@@ -25,11 +26,11 @@ LLM inference in C/C++
 - [[FEEDBACK] Better packaging for llama.cpp to support downstream consumers 🤗](https://github.com/ggml-org/llama.cpp/discussions/15313)
 - Support for the `gpt-oss` model with native MXFP4 format has been added | [PR](https://github.com/ggml-org/llama.cpp/pull/15091) | [Collaboration with NVIDIA](https://blogs.nvidia.com/blog/rtx-ai-garage-openai-oss) | [Comment](https://github.com/ggml-org/llama.cpp/discussions/15095)
 - Multimodal support arrived in `llama-server`: [#12898](https://github.com/ggml-org/llama.cpp/pull/12898) | [documentation](./docs/multimodal.md)
-- VS Code extension for FIM completions: https://github.com/ggml-org/llama.vscode
-- Vim/Neovim plugin for FIM completions: https://github.com/ggml-org/llama.vim
-- Hugging Face Inference Endpoints now support GGUF out of the box! https://github.com/ggml-org/llama.cpp/discussions/9669
+- VS Code extension for FIM completions: [llama.vscode](https://github.com/ggml-org/llama.vscode)
+- Vim/Neovim plugin for FIM completions: [llama.vim](https://github.com/ggml-org/llama.vim)
+- Hugging Face Inference Endpoints now support GGUF out of the box! [discussion](https://github.com/ggml-org/llama.cpp/discussions/9669)
 - Hugging Face GGUF editor: [discussion](https://github.com/ggml-org/llama.cpp/discussions/9268) | [tool](https://huggingface.co/spaces/CISCai/gguf-editor)
-- WebGPU support is now available in the browser, see a blog/demo introducing it [here](https://reeselevine.github.io/llamas-on-the-web/).
+- WebGPU support is now available in the browser, see a [blog/demo](https://reeselevine.github.io/llamas-on-the-web/) introducing it.
 
 ----
 
@@ -80,7 +81,7 @@ Typically finetunes of the base models below are supported as well.
 
 Instructions for adding support for new models: [HOWTO-add-model.md](docs/development/HOWTO-add-model.md)
 
-#### Text-only
+### Text-only
 
 - [X] LLaMA 🦙
 - [x] LLaMA 2 🦙🦙
@@ -265,8 +266,8 @@ Instructions for adding support for new models: [HOWTO-add-model.md](docs/develo
 - [llama-swap](https://github.com/mostlygeek/llama-swap) - transparent proxy that adds automatic model switching with llama-server
 - [Kalavai](https://github.com/kalavai-net/kalavai-client) - Crowdsource end to end LLM deployment at any scale
 - [llmaz](https://github.com/InftyAI/llmaz) - ☸️ Easy, advanced inference platform for large language models on Kubernetes.
-- [LLMKube](https://github.com/defilantech/llmkube) - Kubernetes operator for llama.cpp with multi-GPU and Apple Silicon Metal
-  support"
+- [LLMKube](https://github.com/defilantech/llmkube) - Kubernetes operator for llama.cpp with multi-GPU and Apple Silicon Metal support
+
 </details>
 
 <details>
@@ -275,7 +276,6 @@ Instructions for adding support for new models: [HOWTO-add-model.md](docs/develo
 - [Lucy's Labyrinth](https://github.com/MorganRO8/Lucys_Labyrinth) - A simple maze game where agents controlled by an AI model will try to trick you.
 
 </details>
-
 
 ## Supported backends
 
@@ -321,15 +321,15 @@ After downloading a model, use the CLI tools to run it locally - see below.
 The Hugging Face platform provides a variety of online tools for converting, quantizing and hosting models with `llama.cpp`:
 
 - Use the [GGUF-my-repo space](https://huggingface.co/spaces/ggml-org/gguf-my-repo) to convert to GGUF format and quantize model weights to smaller sizes
-- Use the [GGUF-my-LoRA space](https://huggingface.co/spaces/ggml-org/gguf-my-lora) to convert LoRA adapters to GGUF format (more info: https://github.com/ggml-org/llama.cpp/discussions/10123)
-- Use the [GGUF-editor space](https://huggingface.co/spaces/CISCai/gguf-editor) to edit GGUF meta data in the browser (more info: https://github.com/ggml-org/llama.cpp/discussions/9268)
-- Use the [Inference Endpoints](https://ui.endpoints.huggingface.co/) to directly host `llama.cpp` in the cloud (more info: https://github.com/ggml-org/llama.cpp/discussions/9669)
+- Use the [GGUF-my-LoRA space](https://huggingface.co/spaces/ggml-org/gguf-my-lora) to convert LoRA adapters to GGUF format (more info: [discussion](https://github.com/ggml-org/llama.cpp/discussions/10123))
+- Use the [GGUF-editor space](https://huggingface.co/spaces/CISCai/gguf-editor) to edit GGUF meta data in the browser (more info: [discussion](https://github.com/ggml-org/llama.cpp/discussions/9268))
+- Use the [Inference Endpoints](https://ui.endpoints.huggingface.co/) to directly host `llama.cpp` in the cloud (more info: [discussion](https://github.com/ggml-org/llama.cpp/discussions/9669))
 
 To learn more about model quantization, [read this documentation](tools/quantize/README.md)
 
 ## [`llama-cli`](tools/cli)
 
-#### A CLI tool for accessing and experimenting with most of `llama.cpp`'s functionality.
+### A CLI tool for accessing and experimenting with most of `llama.cpp`'s functionality
 
 - <details open>
     <summary>Run in conversation mode</summary>
@@ -372,14 +372,13 @@ To learn more about model quantization, [read this documentation](tools/quantize
 
     The [grammars/](grammars/) folder contains a handful of sample grammars. To write your own, check out the [GBNF Guide](grammars/README.md).
 
-    For authoring more complex JSON grammars, check out https://grammar.intrinsiclabs.ai/
+    For authoring more complex JSON grammars, check out [Intrinsic Labs](https://grammar.intrinsiclabs.ai/)
 
     </details>
 
-
 ## [`llama-server`](tools/server)
 
-#### A lightweight, [OpenAI API](https://github.com/openai/openai-openapi) compatible, HTTP server for serving LLMs.
+### A lightweight, [OpenAI API](https://github.com/openai/openai-openapi) compatible, HTTP server for serving LLMs
 
 - <details open>
     <summary>Start a local HTTP server with default configuration on port 8080</summary>
@@ -446,10 +445,9 @@ To learn more about model quantization, [read this documentation](tools/quantize
 
     </details>
 
-
 ## [`llama-perplexity`](tools/perplexity)
 
-#### A tool for measuring the [perplexity](tools/perplexity/README.md) [^1] (and other quality metrics) of a model over a given text.
+### A tool for measuring the [perplexity](tools/perplexity/README.md) [^1] (and other quality metrics) of a model over a given text
 
 - <details open>
     <summary>Measure the perplexity over a text file</summary>
@@ -476,7 +474,7 @@ To learn more about model quantization, [read this documentation](tools/quantize
 
 ## [`llama-bench`](tools/llama-bench)
 
-#### Benchmark the performance of the inference for various parameters.
+### Benchmark the performance of the inference for various parameters
 
 - <details open>
     <summary>Run default benchmark</summary>
@@ -497,7 +495,7 @@ To learn more about model quantization, [read this documentation](tools/quantize
 
 ## [`llama-simple`](examples/simple)
 
-#### A minimal example for implementing apps with `llama.cpp`. Useful for developers.
+### A minimal example for implementing apps with `llama.cpp`, useful for developers
 
 - <details>
     <summary>Basic text completion</summary>
@@ -509,7 +507,6 @@ To learn more about model quantization, [read this documentation](tools/quantize
     ```
 
     </details>
-
 
 ## Contributing
 
@@ -529,7 +526,7 @@ To learn more about model quantization, [read this documentation](tools/quantize
 - [server](tools/server/README.md)
 - [GBNF grammars](grammars/README.md)
 
-#### Development documentation
+### Development documentation
 
 - [How to build](docs/build.md)
 - [Running on Docker](docs/docker.md)
@@ -538,22 +535,25 @@ To learn more about model quantization, [read this documentation](tools/quantize
 - [Performance troubleshooting](docs/development/token_generation_performance_tips.md)
 - [GGML tips & tricks](https://github.com/ggml-org/llama.cpp/wiki/GGML-Tips-&-Tricks)
 
-#### Seminal papers and background on the models
+### Seminal papers and background on the models
 
 If your issue is with model generation quality, then please at least scan the following links and papers to understand the limitations of LLaMA models. This is especially important when choosing an appropriate model size and appreciating both the significant and subtle differences between LLaMA models and ChatGPT:
+
 - LLaMA:
-    - [Introducing LLaMA: A foundational, 65-billion-parameter large language model](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/)
-    - [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971)
+  - [Introducing LLaMA: A foundational, 65-billion-parameter large language model](https://ai.facebook.com/blog/large-language-model-llama-meta-ai/)
+  - [LLaMA: Open and Efficient Foundation Language Models](https://arxiv.org/abs/2302.13971)
 - GPT-3
-    - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
+  - [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165)
 - GPT-3.5 / InstructGPT / ChatGPT:
-    - [Aligning language models to follow instructions](https://openai.com/research/instruction-following)
-    - [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
+  - [Aligning language models to follow instructions](https://openai.com/research/instruction-following)
+  - [Training language models to follow instructions with human feedback](https://arxiv.org/abs/2203.02155)
 
 ## XCFramework
+
 The XCFramework is a precompiled version of the library for iOS, visionOS, tvOS,
 and macOS. It can be used in Swift projects without the need to compile the
 library from source. For example:
+
 ```swift
 // swift-tools-version: 5.10
 // The swift-tools-version declares the minimum version of Swift required to build this package.
@@ -576,21 +576,26 @@ let package = Package(
     ]
 )
 ```
+
 The above example is using an intermediate build `b5046` of the library. This can be modified
 to use a different version by changing the URL and checksum.
 
 ## Completions
+
 Command-line completion is available for some environments.
 
-#### Bash Completion
+### Bash Completion
+
 ```bash
-$ build/bin/llama-cli --completion-bash > ~/.llama-completion.bash
-$ source ~/.llama-completion.bash
+build/bin/llama-cli --completion-bash > ~/.llama-completion.bash
+source ~/.llama-completion.bash
 ```
+
 Optionally this can be added to your `.bashrc` or `.bash_profile` to load it
 automatically. For example:
+
 ```console
-$ echo "source ~/.llama-completion.bash" >> ~/.bashrc
+echo "source ~/.llama-completion.bash" >> ~/.bashrc
 ```
 
 ## Dependencies
