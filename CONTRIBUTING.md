@@ -6,7 +6,7 @@ The project differentiates between 3 levels of contributors:
 - Collaborators (Triage): people with significant contributions, who may be responsible for some parts of the code, and are expected to maintain and review contributions for the code they own
 - Maintainers: responsible for reviewing and merging PRs, after approval from the code owners
 
-# AI Usage Policy
+## AI Usage Policy
 
 > [!IMPORTANT]
 > This project does **not** accept pull requests that are fully or predominantly AI-generated. AI tools may be utilized solely in an assistive capacity.
@@ -26,9 +26,10 @@ If AI is used to generate any portion of the code, contributors must adhere to t
 
 For more info, please refer to the [AGENTS.md](AGENTS.md) file.
 
-# Pull requests (for contributors & collaborators)
+## Pull requests (for contributors & collaborators)
 
 Before submitting your PR:
+
 - Search for existing PRs to prevent duplicating efforts
 - llama.cpp uses the ggml tensor library for model evaluation. If you are unfamiliar with ggml, consider taking a look at the [examples in the ggml repository](https://github.com/ggml-org/ggml/tree/master/examples/). [simple](https://github.com/ggml-org/ggml/tree/master/examples/simple) shows the bare minimum for using ggml. [gpt-2](https://github.com/ggml-org/ggml/tree/master/examples/gpt-2) has minimal implementations for language model inference using GPT-2. [mnist](https://github.com/ggml-org/ggml/tree/master/examples/mnist) demonstrates how to train and evaluate a simple image classifier
 - Test your changes:
@@ -47,31 +48,33 @@ Before submitting your PR:
     - provide [performance data](https://github.com/ggml-org/llama.cpp/tree/master/tools/llama-bench) for the new type in comparison to types of similar size on pure CPU
 - Consider allowing write access to your branch for faster reviews, as reviewers can push commits directly
 - If you are a new contributor
-    - Limit your open PRs to 1
-    - Do not submit trivial fixes (e.g. typos, formatting changes)
+  - Limit your open PRs to 1
+  - Do not submit trivial fixes (e.g. typos, formatting changes)
 
 After submitting your PR:
+
 - Expect requests for modifications to ensure the code meets llama.cpp's standards for quality and long-term maintainability
 - Maintainers will rely on your insights and approval when making a final decision to approve and merge a PR
 - If your PR becomes stale, rebase it on top of latest `master` to get maintainers attention
 - Consider adding yourself to [CODEOWNERS](CODEOWNERS) to indicate your availability for fixing related issues and reviewing related PRs
 
-# Pull requests (for maintainers)
+## Pull requests (for maintainers)
 
 - Squash-merge PRs
 - Use the following format for the squashed commit title: `<module> : <commit title> (#<issue_number>)`. For example: `utils : fix typo in utils.py (#1234)`
-- Optionally pick a `<module>` from here: https://github.com/ggml-org/llama.cpp/wiki/Modules
+- Optionally pick a `<module>` from here: [Modules](https://github.com/ggml-org/llama.cpp/wiki/Modules)
 - Let other maintainers merge their own PRs
 - When merging a PR, make sure you have a good understanding of the changes
 - If a PR does not warrant a new release, add `[no release]` in the squashed commit to spare CI resources
 - Be mindful of maintenance: most of the work going into a feature happens after the PR is merged. If the PR author is not committed to contribute long-term, someone else needs to take responsibility (you)
 
 Maintainers reserve the right to decline review or close pull requests for any reason, without any questions, particularly under any of the following conditions:
+
 - The proposed change is already mentioned in the roadmap or an existing issue, and it has been assigned to someone.
 - The pull request duplicates an existing one.
 - The contributor fails to adhere to this contributing guide or the AI policy.
 
-# Coding guidelines
+## Coding guidelines
 
 - Avoid adding third-party dependencies, extra files, extra headers, etc.
 - Always consider cross-compatibility with other operating systems and architectures
@@ -80,7 +83,8 @@ Maintainers reserve the right to decline review or close pull requests for any r
 - Clean-up any trailing whitespaces, use 4 spaces for indentation, brackets on the same line, `void * ptr`, `int & a`
 - Use sized integer types such as `int32_t` in the public API, e.g. `size_t` may also be appropriate for allocation sizes or byte offsets
 - Declare structs with `struct foo {}` instead of `typedef struct foo {} foo`
-    - In C++ code omit optional `struct` and `enum` keyword whenever they are not necessary
+  - In C++ code omit optional `struct` and `enum` keyword whenever they are not necessary
+
     ```cpp
     // OK
     llama_context * ctx;
@@ -91,7 +95,7 @@ Maintainers reserve the right to decline review or close pull requests for any r
     const enum llama_rope_type rope_type;
     ```
 
-    _(NOTE: this guideline is yet to be applied to the `llama.cpp` codebase. New code should follow this guideline.)_
+    *(NOTE: this guideline is yet to be applied to the `llama.cpp` codebase. New code should follow this guideline.)*
 
 - Try to follow the existing patterns in the code (indentation, spaces, etc.). In case of doubt use `clang-format` (from clang-tools v15+) to format the added code
 - For anything not covered in the current guidelines, refer to the [C++ Core Guidelines](https://isocpp.github.io/CppCoreGuidelines/CppCoreGuidelines)
@@ -100,10 +104,10 @@ Maintainers reserve the right to decline review or close pull requests for any r
 
 ![matmul](media/matmul.png)
 
-# Naming guidelines
+## Naming guidelines
 
 - Use `snake_case` for function, variable and type names
-- Naming usually optimizes for longest common prefix (see https://github.com/ggml-org/ggml/pull/302#discussion_r1243240963)
+- Naming usually optimizes for longest common prefix (see [discussion](https://github.com/ggml-org/ggml/pull/302#discussion_r1243240963))
 
     ```cpp
     // not OK
@@ -139,10 +143,10 @@ Maintainers reserve the right to decline review or close pull requests for any r
     llama_adapter_lora_free();    // class: "llama_adapter_lora",  method: "free"
     ```
 
-    - The `get` `<action>` can be omitted
-    - The `<noun>` can be omitted if not necessary
-    - The `_context` suffix of the `<class>` is optional. Use it to disambiguate symbols when needed
-    - Use `init`/`free` for constructor/destructor `<action>`
+  - The `get` `<action>` can be omitted
+  - The `<noun>` can be omitted if not necessary
+  - The `_context` suffix of the `<class>` is optional. Use it to disambiguate symbols when needed
+  - Use `init`/`free` for constructor/destructor `<action>`
 
 - Use the `_t` suffix when a type is supposed to be opaque to the user - it's not relevant to them if it is a struct or anything else
 
@@ -152,23 +156,23 @@ Maintainers reserve the right to decline review or close pull requests for any r
     enum llama_pooling_type llama_pooling_type(const llama_context_t ctx);
     ```
 
-    _(NOTE: this guideline is yet to be applied to the `llama.cpp` codebase. New code should follow this guideline)_
+    *(NOTE: this guideline is yet to be applied to the `llama.cpp` codebase. New code should follow this guideline)*
 
 - C/C++ filenames are all lowercase with dashes. Headers use the `.h` extension. Source files use the `.c` or `.cpp` extension
 - Python filenames are all lowercase with underscores
 
-- _(TODO: abbreviations usage)_
+- *(TODO: abbreviations usage)*
 
-# Preprocessor directives
+## Preprocessor directives
 
-- _(TODO: add guidelines with examples and apply them to the codebase)_
+- *(TODO: add guidelines with examples and apply them to the codebase)*
 
     ```cpp
     #ifdef FOO
     #endif // FOO
     ```
 
-# Code maintenance
+## Code maintenance
 
 - Existing code should have designated collaborators and/or maintainers specified in the [CODEOWNERS](CODEOWNERS) file responsible for:
   - Reviewing and merging related PRs
@@ -181,18 +185,18 @@ Maintainers reserve the right to decline review or close pull requests for any r
   - Provide the necessary CI workflow (and hardware) to test your changes (see [ci/README.md](https://github.com/ggml-org/llama.cpp/tree/master/ci))
 
 - New code should follow the guidelines (coding, naming, etc.) outlined in this document. Exceptions are allowed in isolated, backend-specific parts of the code that do not interface directly with the `ggml` interfaces.
-  _(NOTE: for legacy reasons, existing code is not required to follow this guideline)_
+  *(NOTE: for legacy reasons, existing code is not required to follow this guideline)*
 
 - For changes in server, please make sure to refer to the [server development documentation](./tools/server/README-dev.md)
 
-# Documentation
+## Documentation
 
 - Documentation is a community effort
 - When you need to look into the source code to figure out how to use an API consider adding a short summary to the header file for future reference
 - When you notice incorrect or outdated documentation, please update it
 
-# Resources
+## Resources
 
 The Github issues, PRs and discussions contain a lot of information that can be useful to get familiar with the codebase. For convenience, some of the more important information is referenced from Github projects:
 
-https://github.com/ggml-org/llama.cpp/projects
+[llama.cpp projects](https://github.com/ggml-org/llama.cpp/projects)
