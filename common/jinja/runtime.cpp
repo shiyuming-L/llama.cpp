@@ -167,6 +167,12 @@ value binary_expression::execute_impl(context & ctx) {
         }
         throw std::runtime_error("Cannot perform operation " + op.value + " on undefined values");
     } else if (is_val<value_none>(left_val) || is_val<value_none>(right_val)) {
+        if (!is_val<value_none>(right_val) && (op.value == "in" || op.value == "not in")) {
+            // case: none in {'low': 1}
+            // A null left operand is looked up like any other value.
+            bool member = test_is_in();
+            return mk_val<value_bool>(op.value == "in" ? member : !member);
+        }
         if (op.value == "+" || op.value == "~") {
             value res = mk_val<value_undefined>();
             if (workaround_concat_null_with_str(res)) {
@@ -263,7 +269,7 @@ value binary_expression::execute_impl(context & ctx) {
             return res;
         }
         for (int64_t i = 0; i < repeat; ++i) {
-            res->val_str = res->val_str.append(str);
+            res->val_str.append(str);
         }
         return res;
     }
@@ -412,10 +418,16 @@ value test_expression::execute_impl(context & ctx) {
         throw std::runtime_error("Invalid test expression");
     }
 
-    auto it = builtins.find("test_is_" + test_id);
-    JJ_DEBUG("Test expression %s '%s' %s (using function 'test_is_%s')", operand->type().c_str(), test_id.c_str(), negate ? "(negate)" : "", test_id.c_str());
+    const std::string test_name = "test_is_" + test_id;
+    auto it = builtins.find(test_name);
+    JJ_DEBUG("Test expression %s '%s' %s (using function '%s')", operand->type().c_str(), test_id.c_str(), negate ? "(negate)" : "", test_name.c_str());
     if (it == builtins.end()) {
         throw std::runtime_error("Unknown test '" + test_id + "'");
+    }
+
+    if (ctx.is_get_stats) {
+        value_t::stats_t::mark_used(input);
+        input->stats.ops.insert(test_name);
     }
 
     auto res = it->second(args);
@@ -952,6 +964,52 @@ value keyword_argument_expression::execute_impl(context & ctx) {
     JJ_DEBUG("Keyword argument value executed, type: %s", v->type().c_str());
 
     return mk_val<value_kwarg>(k, v);
+}
+
+std::string runtime::debug_dump_program(const program & prog, const std::string & src) {
+    std::ostringstream oss;
+    size_t lvl = 0;
+    context ctx;
+    ctx.src.reset(new std::string(src));
+
+    auto indent = [](size_t lvl) -> std::string {
+        return std::string(lvl * 2, ' ');
+    };
+
+    ctx.visitor = [&](bool is_leaf, statement * node, std::vector<visitor_pair> children) {
+        oss << indent(lvl) << node->type() << ":\n";
+        lvl++;
+        if (is_leaf) {
+            const auto & pos = node->pos;
+            oss << indent(lvl) << "(leaf) at " << get_line_col(src, pos) << " in source:\n";
+            std::string snippet = peak_source(src, pos);
+            string_replace_all(snippet, "\n", "\n" + indent(lvl));
+            oss << indent(lvl) << snippet << "\n";
+        } else {
+            for (auto & [label, children_vec] : children) {
+                oss << indent(lvl) << label << ":\n";
+                lvl++;
+                if (children_vec.empty()) {
+                    oss << indent(lvl) << "<empty>\n\n";
+                } else {
+                    for (auto * child : children_vec) {
+                        if (!child) {
+                            continue;
+                        }
+                        child->visit(ctx);
+                    }
+                }
+                lvl--;
+            }
+        }
+        lvl--;
+    };
+
+    for (const auto & stmt : prog.body) {
+        stmt->visit(ctx);
+    }
+
+    return oss.str();
 }
 
 } // namespace jinja
